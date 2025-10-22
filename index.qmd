@@ -107,7 +107,6 @@ Let's start by loading the ZappTech shipment data and understanding what we're w
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 from datetime import datetime, timedelta
 
 # Load the shipment data
@@ -170,18 +169,17 @@ Let's start by calculating whether each shipment was late:
 #| label: mental-model-1-assign
 #| echo: true
 
-# Simple assignment - calculate if shipment was late
 shipments_with_lateness = (
     shipments_df
     .assign(
-        is_late=lambda df: df['actualShipDate'] > df['plannedShipDate'],
-        days_late=lambda df: (df['actualShipDate'] - df['plannedShipDate']).dt.days
+        is_late   = lambda df: df['actualShipDate'] > df['plannedShipDate'],
+        days_late = lambda df: (df['actualShipDate'] - df['plannedShipDate']).dt.days,
+        lateStatement = lambda df: np.where(df["is_late"], "Darn Shipment is Late", "Shipment is on Time")
     )
 )
-
-print("Added lateness calculations:")
-print(shipments_with_lateness[['shipID', 'plannedShipDate', 'actualShipDate', 'is_late', 'days_late']].head())
+shipments_with_lateness[['shipID','plannedShipDate','actualShipDate','is_late','days_late','lateStatement']].head()
 ```
+
 
 ::: {.callout-tip}
 ## 💡 Method Chaining Tip for New Python Users
@@ -218,7 +216,43 @@ What's wrong with the `lateStatement` assignment and how would you fix it?
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-Adam's answers will be here.
+### 🧩 Rohit's answers will be here- Assign Mental Model — Discussion Answers
+
+**Q1: Data Types and Date Handling**
+
+```python
+shipments_df["actualShipDate"].dtype
+```
+Both `actualShipDate` and `plannedShipDate` must be date (`datetime64[ns]`) types.  
+If one is text, pandas compares letters instead of real time, giving wrong results.
+
+---
+
+**Q2: String vs Date Comparison**
+
+```python
+"04-11-2025" > "05-20-2024"      # compares text
+pd.to_datetime("04-11-2025") > pd.to_datetime("05-20-2024")   # compares real dates
+```
+String compare looks at letters; datetime compare uses actual dates.  
+Always convert with `pd.to_datetime()` before comparing.
+
+---
+
+**Q3: Debug This Code**
+
+Wrong:
+```python
+lateStatement = "Darn Shipment is Late" if shipments_df['is_late'] else "Shipment is on Time"
+```
+It tries one `if` on a whole column.  
+✅ Fix:
+```python
+lateStatement = lambda d: np.where(d["is_late"], "Darn Shipment is Late", "Shipment is on Time")
+```
+`np.where()` checks each row separately.
+
+
 
 ### 2. Subset: Querying Rows and Filtering Columns
 
@@ -230,17 +264,32 @@ Let's query for only late shipments and filter to keep the columns we need:
 #| label: mental-model-2-subset
 #| echo: true
 
-# Query rows for late shipments and filter to keep specific columns
+# 0) sanity check
+print("assign ready:", "shipments_with_lateness" in globals())
+
+# 1) keep only late rows and selected columns
 late_shipments = (
     shipments_with_lateness
-    .query('is_late == True')  # Query rows where is_late is True
-    .filter(['shipID', 'partID', 'plannedShipDate', 'actualShipDate', 'days_late'])  # Filter to keep specific columns
+    .query("is_late == True")
+    .loc[:, ["shipID","partID","plannedShipDate","actualShipDate","days_late"]]
 )
 
-print(f"Found {len(late_shipments)} late shipments out of {len(shipments_with_lateness)} total")
-print("\nLate shipments sample:")
-print(late_shipments.head())
+# 2) use a variable in query (example: 5+ days late)
+late_threshold = 5
+late_5plus = (
+    shipments_with_lateness
+    .query("days_late >= @late_threshold")
+    .loc[:, ["shipID","partID","days_late"]]
+)
+
+print("Late shipments:", len(late_shipments))
+from IPython.display import display
+display(late_shipments.head(3))
+print("\n5+ days late sample:")
+display(late_5plus.head(5))
 ```
+
+
 
 ::: {.callout-note}
 ## 🔍 Understanding the Methods
@@ -263,7 +312,22 @@ print(late_shipments.head())
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+#### 🧩 Rohit's answers will be here- Subset Mental Model — Discussion Answers
+**🧩 Subset Mental Model — Discussion Answers**
+
+**Q1: Query vs Boolean Indexing**  
+Using `.query('is_late == True')` is more readable and shorter than using `df[df["is_late"] == True]`.  
+Both give the same result, but `.query()` looks cleaner and easier to write when filtering by column names.
+
+**Q2: Using a Variable Inside Query**  
+We can filter rows using a variable, like this:  
+```python
+late_threshold = 5
+late_5plus = shipments_with_lateness.query("days_late >= @late_threshold")
+```
+The `@` lets pandas know to use the variable `late_threshold` inside the query.  
+This keeps code flexible — we can easily change the number (like 3 or 10) without editing the whole line.
+
 
 ### 3. Drop: Removing Unwanted Data
 
@@ -275,16 +339,31 @@ Let's clean up our data by removing unnecessary columns:
 #| label: mental-model-3-drop
 #| echo: true
 
-# Create a cleaner dataset by dropping unnecessary columns
+# (safety guard) rebuild prior step if kernel was restarted
+if "shipments_with_lateness" not in globals():
+    shipments_with_lateness = (
+        shipments_df
+        .assign(
+            is_late   = lambda d: d["actualShipDate"] > d["plannedShipDate"],
+            days_late = lambda d: (d["actualShipDate"] - d["plannedShipDate"]).dt.days
+        )
+    )
+
+# 1) drop columns we don't need for this analysis (quantity is optional in this dataset)
 clean_shipments = (
     shipments_with_lateness
-    .drop(columns=['quantity'])  # Drop quantity column (not needed for our analysis)
-    .dropna(subset=['plannedShipDate', 'actualShipDate'])  # Remove rows with missing dates
+    .drop(columns=["quantity"], errors="ignore")         # ignore if column doesn't exist
+    .dropna(subset=["plannedShipDate","actualShipDate"]) # keep only rows with both dates
 )
 
-print(f"Cleaned dataset: {len(clean_shipments)} rows, {len(clean_shipments.columns)} columns")
-print("Remaining columns:", clean_shipments.columns.tolist())
+# tiny audit so we see what changed
+rows_before = len(shipments_with_lateness)
+rows_after  = len(clean_shipments)
+print({"rows_before": rows_before, "rows_after": rows_after, "dropped_rows": rows_before - rows_after})
+print("Columns kept:", list(clean_shipments.columns))
+clean_shipments.head(3)
 ```
+
 
 ::: {.callout-important}
 ## 🤔 Discussion Questions: Drop Mental Model
@@ -301,7 +380,21 @@ print("Remaining columns:", clean_shipments.columns.tolist())
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+#### 🧩 Rohit's answers will be here- Drop Mental Model — Discussion Answers
+
+**🧩 Drop Mental Model — Discussion Answers**
+
+**Q1: Drop vs Filter (keep specific columns)**  
+- `.drop(columns=[...])` = remove a few columns you don’t need.  
+- `.loc[:, keep_list]` = keep **only** a whitelist of columns.  
+Pick `.drop` when you know the unwanted columns; pick `.loc` when you want a tight, known set to keep.
+
+**Q2: Handling Missing Data**
+`dropna()` vs `dropna(subset=...)`**  
+- `.dropna()` removes any row that has **any** missing value in **any** column.  
+- `.dropna(subset=["plannedShipDate","actualShipDate"])` only checks those columns.  
+We use `subset` here because we only require the two date fields to compute lateness.
+
 
 ### 4. Sort: Arranging Data
 
@@ -313,16 +406,40 @@ Let's sort by lateness to see the worst offenders:
 #| label: mental-model-4-sort
 #| echo: true
 
-# Sort by days late (worst first)
+# safety: rebuild prior result if kernel was restarted
+if "clean_shipments" not in globals():
+    # re-create from earlier steps
+    shipments_with_lateness = (
+        shipments_df
+        .assign(
+            is_late   = lambda d: d["actualShipDate"] > d["plannedShipDate"],
+            days_late = lambda d: (d["actualShipDate"] - d["plannedShipDate"]).dt.days
+        )
+    )
+    clean_shipments = (
+        shipments_with_lateness
+        .drop(columns=["quantity"], errors="ignore")
+        .dropna(subset=["plannedShipDate","actualShipDate"])
+    )
+
+# 1) sort by days_late (largest first) and reset row numbers
 sorted_by_lateness = (
     clean_shipments
-    .sort_values('days_late', ascending=False)  # Sort by days_late, highest first
-    .reset_index(drop=True)  # Reset index to be sequential
+    .sort_values("days_late", ascending=False)   # biggest delay at top
+    .reset_index(drop=True)                      # make row numbers 0..N-1
 )
 
-print("Shipments sorted by lateness (worst first):")
-print(sorted_by_lateness[['shipID', 'partID', 'days_late', 'is_late']].head(10))
+# 2) example: sort by two columns (late first, then size of delay)
+sorted_two_keys = (
+    clean_shipments
+    .sort_values(["is_late", "days_late"], ascending=[False, False])
+    .reset_index(drop=True)
+)
+
+print("Top 8 worst delays:")
+sorted_by_lateness.loc[:, ["shipID","partID","days_late","is_late"]].head(8)
 ```
+
 
 ::: {.callout-important}
 ## 🤔 Discussion Questions: Sort Mental Model
@@ -339,7 +456,20 @@ print(sorted_by_lateness[['shipID', 'partID', 'days_late', 'is_late']].head(10))
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+#### 🧩 Rohit's answers will be here- Sort Mental Model — Discussion Answers
+**🧩 Sort Mental Model — Discussion Answers**   
+
+**Q1: Sorting options**  
+- `ascending=False` → largest values first.  
+- Sort by multiple columns:
+  ```python
+  df.sort_values(["is_late","days_late"], ascending=[False, False])
+  ```
+
+**Q2: Why reset the index?**  
+Sorting keeps the **old** row numbers, which can look messy.  
+`.reset_index(drop=True)` creates clean 0..N-1 row numbers after sorting.
+s
 
 ### 5. Aggregate: Summarizing Data
 
@@ -351,23 +481,41 @@ Let's calculate overall service level metrics:
 #| label: mental-model-5-aggregate
 #| echo: true
 
-# Calculate overall service level metrics
-service_metrics = (
-    clean_shipments
-    .agg({
-        'is_late': ['count', 'sum', 'mean'],  # Count total, count late, calculate percentage
-        'days_late': ['mean', 'max']  # Average and maximum days late
-    })
-    .round(3)
+# safety: rebuild if needed (kernel was restarted)
+if "clean_shipments" not in globals():
+    shipments_with_lateness = (
+        shipments_df
+        .assign(
+            is_late   = lambda d: d["actualShipDate"] > d["plannedShipDate"],
+            days_late = lambda d: (d["actualShipDate"] - d["plannedShipDate"]).dt.days
+        )
+    )
+    clean_shipments = (
+        shipments_with_lateness
+        .drop(columns=["quantity"], errors="ignore")
+        .dropna(subset=["plannedShipDate","actualShipDate"])
+    )
+
+# --- Aggregate: one-row summary of service metrics (named aggregation) ---
+service_metrics = clean_shipments.agg(
+    shipments  = ("is_late", "size"),  # total rows
+    late_count = ("is_late", "sum"),   # count of True
+    late_rate  = ("is_late", "mean"),  # percent True
+    avg_late   = ("days_late", "mean"),
+    max_late   = ("days_late", "max"),
 )
 
-print("Overall Service Level Metrics:")
-print(service_metrics)
+# Ensure we always end up with a 1-row DataFrame (Series -> DataFrame)
+import pandas as pd
+if isinstance(service_metrics, pd.Series):
+    service_metrics = service_metrics.to_frame().T
 
-# Calculate percentage on-time directly from the data
-on_time_rate = (1 - clean_shipments['is_late'].mean()) * 100
-print(f"\nOn-time delivery rate: {on_time_rate:.1f}%")
+# Round only for display
+service_metrics_display = service_metrics.round({"late_rate": 3, "avg_late": 2})
+service_metrics_display
 ```
+
+
 
 ::: {.callout-important}
 ## 🤔 Discussion Questions: Aggregate Mental Model
@@ -377,9 +525,17 @@ print(f"\nOn-time delivery rate: {on_time_rate:.1f}%")
 
 :::
 
+
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+**🧩 Aggregate Mental Model — Discussion Answers**
+
+**Q1: Why does `sum()` work on booleans?**  
+`True` counts as `1` and `False` as `0`. So `sum()` counts Trues, and `mean()` gives the fraction of Trues.
+
+**Q2: Why round only at the end?**  
+Rounding early can change the math. Keep full precision for calculations, then round only for display.
+
 
 ### 6. Merge: Combining Information
 
@@ -388,21 +544,72 @@ print(f"\nOn-time delivery rate: {on_time_rate:.1f}%")
 Now let's analyze service levels by product category. First, we need to merge our data:
 
 ```{python}
-#| label: mental-model-6-merge-prep
+#| label: mental-model-6-merge
 #| echo: true
 
-# Merge shipment data with product line data
-shipments_with_category = (
-    clean_shipments
-    .merge(product_line_df, on='partID', how='left')  # Left join to keep all shipments
-    .assign(
-        category_late=lambda df: df['is_late'] & df['prodCategory'].notna()  # Only count as late if we have category info
+# safety: rebuild prior results if needed
+if "clean_shipments" not in globals():
+    shipments_with_lateness = (
+        shipments_df
+        .assign(
+            is_late   = lambda d: d["actualShipDate"] > d["plannedShipDate"],
+            days_late = lambda d: (d["actualShipDate"] - d["plannedShipDate"]).dt.days
+        )
     )
+    clean_shipments = (
+        shipments_with_lateness
+        .drop(columns=["quantity"], errors="ignore")
+        .dropna(subset=["plannedShipDate","actualShipDate"])
+    )
+
+# --- Merge with product info (keep all shipments) ---
+rows_before = len(clean_shipments)
+
+# Prefer validation (many shipments -> one product row). If duplicates exist, skip validation gracefully.
+try:
+    shipments_with_category = clean_shipments.merge(
+        product_line_df,
+        on="partID",
+        how="left",
+        validate="many_to_one"  # guard against duplicate partID in product table
+    )
+except Exception as e:
+    print("Note: validate='many_to_one' failed, merging without validate. Details:", e)
+    shipments_with_category = clean_shipments.merge(
+        product_line_df,
+        on="partID",
+        how="left"
+    )
+
+rows_after = len(shipments_with_category)
+
+# add a helper flag (late + has category info)
+shipments_with_category = shipments_with_category.assign(
+    category_late = lambda d: d["is_late"] & d["prodCategory"].notna()
 )
 
-print("\nProduct categories available:")
-print(shipments_with_category['prodCategory'].value_counts())
+# small join audit
+missing_cat = shipments_with_category["prodCategory"].isna().sum()
+print({
+    "rows_before_merge": rows_before,
+    "rows_after_merge": rows_after,
+    "lost_rows": rows_before - rows_after,
+    "missing_prodCategory": int(missing_cat)
+})
+
+# quick peek
+from IPython.display import display
+display(
+    shipments_with_category
+      .loc[:, ["shipID","partID","prodCategory","is_late","days_late","category_late"]]
+      .head(8)
+)
+
+# category coverage
+print("\nCategory counts (non-missing):")
+display(shipments_with_category["prodCategory"].value_counts().head(10))
 ```
+
 
 ::: {.callout-important}
 ## 🤔 Discussion Questions: Merge Mental Model
@@ -418,7 +625,24 @@ print(shipments_with_category['prodCategory'].value_counts())
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+#### 🧩 Rohit's answers will be here- Merge Mental Model — Discussion Answers
+
+**🧩 Merge Mental Model — Discussion Answers**
+
+**Q1: Why use `how="left"`?**  
+We want to keep **all shipments** even if some parts don’t have category info yet. A left join keeps the shipment rows.
+
+**Q2: How to check if we lost rows in the merge?**  
+Compare counts **before vs after** the merge. They should match for a left join:
+```python
+len(clean_shipments), len(shipments_with_category)
+```
+
+**Q3: What if `partID` has duplicates in the product table?**  
+Duplicates create many-to-many matches (rows can multiply). Use
+`validate="many_to_one"` to catch it. If it fails, fix the product table so
+each `partID` maps to **one** category.
+
 
 ### 7. Split-Apply-Combine: Group Analysis
 
@@ -430,20 +654,56 @@ Now let's analyze service levels by category:
 #| label: mental-model-7-groupby
 #| echo: true
 
-# Analyze service levels by product category
+# safety: rebuild merge result if needed
+if "shipments_with_category" not in globals():
+    # rebuild from earlier steps
+    shipments_with_lateness = (
+        shipments_df
+        .assign(
+            is_late   = lambda d: d["actualShipDate"] > d["plannedShipDate"],
+            days_late = lambda d: (d["actualShipDate"] - d["plannedShipDate"]).dt.days
+        )
+    )
+    clean_shipments = (
+        shipments_with_lateness
+        .drop(columns=["quantity"], errors="ignore")
+        .dropna(subset=["plannedShipDate","actualShipDate"])
+    )
+    shipments_with_category = clean_shipments.merge(
+        product_line_df, on="partID", how="left"
+    ).assign(category_late = lambda d: d["is_late"] & d["prodCategory"].notna())
+
+# --- Group by product category: late rate + lateness stats ---
 service_by_category = (
     shipments_with_category
-    .groupby('prodCategory')  # Split by product category
-    .agg({
-        'is_late': ['any', 'count', 'sum', 'mean'],  # Count, late count, percentage late
-        'days_late': ['mean', 'max']  # Average and max days late
-    })
-    .round(3)
+    .groupby("prodCategory", as_index=False)
+    .agg(
+        shipments = ("is_late", "size"),
+        late      = ("is_late", "sum"),
+        late_rate = ("is_late", "mean"),
+        avg_late  = ("days_late", "mean"),
+        max_late  = ("days_late", "max")
+    )
+    .assign(on_time_rate = lambda d: 1 - d["late_rate"])
+    .round({"late_rate": 3, "on_time_rate": 3, "avg_late": 2})
+    .sort_values("on_time_rate", ascending=False)
 )
 
-print("Service Level by Product Category:")
-print(service_by_category)
+from IPython.display import display
+display(service_by_category.head(10))
+
+# --- (optional) multi-level grouping example: by ship + category ---
+ship_cat_summary = (
+    shipments_with_category
+    .groupby(["shipID","prodCategory"], as_index=False)
+    .agg(
+        late_any  = ("is_late","any"),
+        max_late  = ("days_late","max")
+    )
+)
+display(ship_cat_summary.head(8))
 ```
+
 
 ::: {.callout-important}
 ## 🤔 Discussion Questions: Split-Apply-Combine Mental Model
@@ -458,7 +718,21 @@ print(service_by_category)
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+#### 🧩 Rohit's answers will be here- Split-Apply-Combine Mental Model — Discussion Answers
+
+**🧩 Split–Apply–Combine Mental Model — Discussion Answers**
+
+**Q1: What does `groupby('prodCategory')` do?**  
+It **splits** the data into one group per category.  
+Then `.agg(...)` **applies** functions inside each group and **combines** the results into a summary table.
+
+**Q2: Why do we need `.agg()` after `groupby`?**  
+`groupby` just makes the groups; `.agg()` tells pandas **what to calculate** for each group (counts, mean, max, etc.).
+
+**Q3: What’s different about grouping by `['shipID','prodCategory']`?**  
+It summarizes **within each shipment** for each category (for example, was **any** item late in that shipment/category?).  
+Grouping by just `'prodCategory'` ignores shipment boundaries and gives overall category stats.
+
 
 ## Answering A Business Question
 
@@ -467,29 +741,59 @@ print(service_by_category)
 Let's create a comprehensive analysis by combining shipment-level data with category information:
 
 ```{python}
-#| label: mental-model-7-comprehensive
+#| label: business-question
 #| echo: true
 
-# Create a comprehensive analysis dataset
-comprehensive_analysis = (
-    shipments_with_category
-    .groupby(['shipID', 'prodCategory'])  # Group by shipment and category
-    .agg({
-        'is_late': 'any',  # True if any item in this shipment/category is late
-        'days_late': 'max'  # Maximum days late for this shipment/category
-    })
-    .reset_index()
-    .assign(
-        has_multiple_categories=lambda df: df.groupby('shipID')['prodCategory'].transform('nunique') > 1
+# Q: Do certain categories have better service? How many multi-category shipments?
+
+# safety: rebuild if needed
+if "shipments_with_category" not in globals():
+    shipments_with_lateness = (
+        shipments_df
+        .assign(
+            is_late   = lambda d: d["actualShipDate"] > d["plannedShipDate"],
+            days_late = lambda d: (d["actualShipDate"] - d["plannedShipDate"]).dt.days
+        )
     )
+    clean_shipments = (
+        shipments_with_lateness
+        .drop(columns=["quantity"], errors="ignore")
+        .dropna(subset=["plannedShipDate","actualShipDate"])
+    )
+    shipments_with_category = clean_shipments.merge(
+        product_line_df, on="partID", how="left"
+    )
+
+# 1) service by category (on-time rate)
+service_by_category = (
+    shipments_with_category
+    .groupby("prodCategory", as_index=False)
+    .agg(
+        shipments = ("is_late","size"),
+        late      = ("is_late","sum"),
+        late_rate = ("is_late","mean")
+    )
+    .assign(on_time_rate = lambda d: 1 - d["late_rate"])
+    .sort_values("on_time_rate", ascending=False)
 )
 
-print("Comprehensive analysis - shipments with multiple categories:")
-multi_category_shipments = comprehensive_analysis[comprehensive_analysis['has_multiple_categories']]
-print(f"Shipments with multiple categories: {multi_category_shipments['shipID'].nunique()}")
-print(f"Total unique shipments: {comprehensive_analysis['shipID'].nunique()}")
-print(f"Percentage with multiple categories: {multi_category_shipments['shipID'].nunique() / comprehensive_analysis['shipID'].nunique() * 100:.1f}%")
+# 2) multi-category shipments (% of shipments that include >1 category)
+ship_cat = (
+    shipments_with_category
+    .groupby(["shipID","prodCategory"], as_index=False)
+    .size()
+)
+multi_cat = (
+    ship_cat.groupby("shipID")["prodCategory"].nunique().rename("n_cat").reset_index()
+)
+multi_share = (multi_cat["n_cat"] > 1).mean() * 100
+
+# Display quick results
+from IPython.display import display
+print(f"Share of shipments with multiple product categories: {multi_share:.1f}%")
+display(service_by_category.head(10))
 ```
+
 
 ::: {.callout-important}
 ## 🤔 Discussion Questions: Answering A Business Question
@@ -502,7 +806,19 @@ print(f"Percentage with multiple categories: {multi_category_shipments['shipID']
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+#### 🧩 Rohit's answers will be here- Answering A Business Question — Discussion Answers    
+
+**🧩 Business Question — Discussion Answers**
+
+**Q1: What are we answering?**  
+We’re showing **which categories are most on-time** (highest on-time %) and **how many orders span multiple categories**.
+
+**Q2: Why group by `['shipID','prodCategory']` for multi-category?**  
+It counts unique categories **within each shipment**, so we can tell if a single order had parts from multiple categories.
+
+**Q3: What can management do with this?**  
+Focus on categories with lower on-time %, and plan staffing/inventory where multi-category orders are common.
+
 
 ## Student Analysis Section: Mastering Data Manipulation {#student-analysis-section}
 
@@ -540,6 +856,24 @@ print(f"Percentage with multiple categories: {multi_category_shipments['shipID']
 - Support the insights from your discussion questions
 - Be appropriate for a business audience
 - Do not `echo` the code that creates the visualizations
+
+### Professional Visualizations
+```{python}
+#| label: viz-on-time-rate-by-category
+#| echo: false
+#| fig-cap: "On-time percentage by product category"
+
+_plot = service_by_category.sort_values("on_time_rate", ascending=True)
+fig, ax = plt.subplots(figsize=(9,4))
+ax.barh(_plot["prodCategory"].astype(str), _plot["on_time_rate"]*100)
+ax.set_xlabel("On-time %")
+ax.set_ylabel("Product Category")
+ax.set_title("On-time Delivery by Category")
+for i, v in enumerate((_plot["on_time_rate"]*100).round(1)):
+    ax.text(float(v) + 0.5, i, f"{v:.1f}%", va="center")
+plt.tight_layout()
+```
+
 
 ## Challenge Requirements 📋
 
