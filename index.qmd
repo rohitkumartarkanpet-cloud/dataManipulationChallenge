@@ -3,7 +3,7 @@ title: "Data Manipulation Challenge"
 subtitle: "A Mental Model for Method Chaining in Pandas"
 format:
   html: default
-  pdf: default
+ # pdf: default
 execute:
   echo: true
   eval: true
@@ -862,17 +862,46 @@ Focus on categories with lower on-time %, and plan staffing/inventory where mult
 #| label: viz-on-time-rate-by-category
 #| echo: false
 #| fig-cap: "On-time percentage by product category"
+#| fig-width: 9
+#| fig-height: 3.8
+#| dpi: 150
+#| fig-align: center
 
-_plot = service_by_category.sort_values("on_time_rate", ascending=True)
-fig, ax = plt.subplots(figsize=(9,4))
-ax.barh(_plot["prodCategory"].astype(str), _plot["on_time_rate"]*100)
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
+
+# make a clean copy sorted by on-time rate (ascending for barh)
+_plot = (
+    service_by_category
+    .dropna(subset=["on_time_rate"])
+    .sort_values("on_time_rate", ascending=True)
+    .assign(on_time_pct=lambda d: (d["on_time_rate"] * 100).round(1))
+)
+
+fig, ax = plt.subplots()
+ax.barh(_plot["prodCategory"].astype(str), _plot["on_time_pct"])
+
+# x axis in 0–100% with percent labels
+ax.set_xlim(0, 100)
+ax.xaxis.set_major_formatter(mtick.PercentFormatter(xmax=100))
+
+# labels & title
 ax.set_xlabel("On-time %")
 ax.set_ylabel("Product Category")
 ax.set_title("On-time Delivery by Category")
-for i, v in enumerate((_plot["on_time_rate"]*100).round(1)):
-    ax.text(float(v) + 0.5, i, f"{v:.1f}%", va="center")
+
+# light grid and cleaner frame
+ax.grid(axis="x", linestyle=":", alpha=0.5)
+for spine in ["top", "right"]:
+    ax.spines[spine].set_visible(False)
+
+# value labels at the end of bars
+for i, v in enumerate(_plot["on_time_pct"]):
+    ax.text(v + 0.6, i, f"{v:.1f}%", va="center")
+
 plt.tight_layout()
 ```
+
 
 
 ## Challenge Requirements 📋
