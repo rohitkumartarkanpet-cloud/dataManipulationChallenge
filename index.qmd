@@ -902,6 +902,9 @@ for i, v in enumerate(_plot["on_time_pct"]):
 plt.tight_layout()
 ```
 
+### Conclusion
+Across ~4k shipments, about **11%** were late. Categories differ: top groups run at ~95% on-time, while others are closer to **82%**. About **23%** of orders span multiple categories, which increases coordination needs.  
+**Next steps:** prioritize SLAs/process fixes for the lowest on-time categories, and review picking/inventory for multi-category orders to reduce delays.
 
 
 ## Challenge Requirements 📋

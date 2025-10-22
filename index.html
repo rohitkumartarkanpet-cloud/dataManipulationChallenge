@@ -318,7 +318,7 @@ First few rows of product line data:
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>shipments_with_lateness[[<span class="st">'shipID'</span>,<span class="st">'plannedShipDate'</span>,<span class="st">'actualShipDate'</span>,<span class="st">'is_late'</span>,<span class="st">'days_late'</span>,<span class="st">'lateStatement'</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="mental-model-1-assign" class="cell-output cell-output-display" data-execution_count="22">
+<div id="mental-model-1-assign" class="cell-output cell-output-display" data-execution_count="12">
 <div>
 
 
@@ -661,7 +661,7 @@ This keeps code flexible — we can easily change the number (like 3 or 10) with
 <pre><code>{'rows_before': 4000, 'rows_after': 4000, 'dropped_rows': 0}
 Columns kept: ['shipID', 'plannedShipDate', 'actualShipDate', 'partID', 'is_late', 'days_late', 'lateStatement']</code></pre>
 </div>
-<div id="mental-model-3-drop" class="cell-output cell-output-display" data-execution_count="24">
+<div id="mental-model-3-drop" class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -785,7 +785,7 @@ We use <code>subset</code> here because we only require the two date fields to c
 <div class="cell-output cell-output-stdout">
 <pre><code>Top 8 worst delays:</code></pre>
 </div>
-<div id="mental-model-4-sort" class="cell-output cell-output-display" data-execution_count="25">
+<div id="mental-model-4-sort" class="cell-output cell-output-display" data-execution_count="15">
 <div>
 
 
@@ -927,7 +927,7 @@ Sorting keeps the <strong>old</strong> row numbers, which can look messy.<br>
 <span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Round only for display</span></span>
 <span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>service_metrics_display <span class="op">=</span> service_metrics.<span class="bu">round</span>({<span class="st">"late_rate"</span>: <span class="dv">3</span>, <span class="st">"avg_late"</span>: <span class="dv">2</span>})</span>
 <span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>service_metrics_display</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="mental-model-5-aggregate" class="cell-output cell-output-display" data-execution_count="26">
+<div id="mental-model-5-aggregate" class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -1597,6 +1597,11 @@ Focus on categories with lower on-time %, and plan staffing/inventory where mult
 </div>
 </div>
 </div>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>Across ~4k shipments, about <strong>11%</strong> were late. Categories differ: top groups run at ~95% on-time, while others are closer to <strong>82%</strong>. About <strong>23%</strong> of orders span multiple categories, which increases coordination needs.<br>
+<strong>Next steps:</strong> prioritize SLAs/process fixes for the lowest on-time categories, and review picking/inventory for multi-category orders to reduce delays.</p>
 </section>
 </section>
 <section id="challenge-requirements" class="level2">
