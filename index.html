@@ -77,10 +77,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-manipulation-challenge---a-mental-model-for-method-chaining-in-pandas" id="toc-data-manipulation-challenge---a-mental-model-for-method-chaining-in-pandas" class="nav-link active" data-scroll-target="#data-manipulation-challenge---a-mental-model-for-method-chaining-in-pandas">🔗 Data Manipulation Challenge - A Mental Model for Method Chaining in Pandas</a>
+  <ul class="collapse">
+  <li><a href="#the-problem-mastering-data-manipulation-through-method-chaining" id="toc-the-problem-mastering-data-manipulation-through-method-chaining" class="nav-link" data-scroll-target="#the-problem-mastering-data-manipulation-through-method-chaining">The Problem: Mastering Data Manipulation Through Method Chaining</a></li>
+  <li><a href="#the-seven-mental-models-of-data-manipulation" id="toc-the-seven-mental-models-of-data-manipulation" class="nav-link" data-scroll-target="#the-seven-mental-models-of-data-manipulation">The Seven Mental Models of Data Manipulation</a></li>
+  <li><a href="#data-and-business-context" id="toc-data-and-business-context" class="nav-link" data-scroll-target="#data-and-business-context">Data and Business Context</a></li>
+  <li><a href="#data-loading-and-initial-exploration" id="toc-data-loading-and-initial-exploration" class="nav-link" data-scroll-target="#data-loading-and-initial-exploration">Data Loading and Initial Exploration</a></li>
+  <li><a href="#the-seven-mental-models-a-progressive-learning-journey" id="toc-the-seven-mental-models-a-progressive-learning-journey" class="nav-link" data-scroll-target="#the-seven-mental-models-a-progressive-learning-journey">The Seven Mental Models: A Progressive Learning Journey</a>
+  <ul class="collapse">
+  <li><a href="#assign-adding-new-variables" id="toc-assign-adding-new-variables" class="nav-link" data-scroll-target="#assign-adding-new-variables">1. Assign: Adding New Variables</a></li>
+  <li><a href="#rohits-answers-will-be-here--assign-mental-model-discussion-answers" id="toc-rohits-answers-will-be-here--assign-mental-model-discussion-answers" class="nav-link" data-scroll-target="#rohits-answers-will-be-here--assign-mental-model-discussion-answers">🧩 Rohit’s answers will be here- Assign Mental Model — Discussion Answers</a></li>
+  <li><a href="#subset-querying-rows-and-filtering-columns" id="toc-subset-querying-rows-and-filtering-columns" class="nav-link" data-scroll-target="#subset-querying-rows-and-filtering-columns">2. Subset: Querying Rows and Filtering Columns</a></li>
+  <li><a href="#drop-removing-unwanted-data" id="toc-drop-removing-unwanted-data" class="nav-link" data-scroll-target="#drop-removing-unwanted-data">3. Drop: Removing Unwanted Data</a></li>
+  <li><a href="#sort-arranging-data" id="toc-sort-arranging-data" class="nav-link" data-scroll-target="#sort-arranging-data">4. Sort: Arranging Data</a></li>
+  <li><a href="#aggregate-summarizing-data" id="toc-aggregate-summarizing-data" class="nav-link" data-scroll-target="#aggregate-summarizing-data">5. Aggregate: Summarizing Data</a></li>
+  <li><a href="#merge-combining-information" id="toc-merge-combining-information" class="nav-link" data-scroll-target="#merge-combining-information">6. Merge: Combining Information</a></li>
+  <li><a href="#split-apply-combine-group-analysis" id="toc-split-apply-combine-group-analysis" class="nav-link" data-scroll-target="#split-apply-combine-group-analysis">7. Split-Apply-Combine: Group Analysis</a></li>
+  </ul></li>
+  <li><a href="#answering-a-business-question" id="toc-answering-a-business-question" class="nav-link" data-scroll-target="#answering-a-business-question">Answering A Business Question</a></li>
+  <li><a href="#student-analysis-section" id="toc-student-analysis-section" class="nav-link" data-scroll-target="#student-analysis-section">Student Analysis Section: Mastering Data Manipulation</a>
+  <ul class="collapse">
+  <li><a href="#core-challenge-discussion-questions-analysis" id="toc-core-challenge-discussion-questions-analysis" class="nav-link" data-scroll-target="#core-challenge-discussion-questions-analysis">Core Challenge: Discussion Questions Analysis</a></li>
+  <li><a href="#professional-visualizations-for-100-grade" id="toc-professional-visualizations-for-100-grade" class="nav-link" data-scroll-target="#professional-visualizations-for-100-grade">Professional Visualizations (For 100% Grade)</a></li>
+  <li><a href="#professional-visualizations" id="toc-professional-visualizations" class="nav-link" data-scroll-target="#professional-visualizations">Professional Visualizations</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  <li><a href="#challenge-requirements" id="toc-challenge-requirements" class="nav-link" data-scroll-target="#challenge-requirements">Challenge Requirements 📋</a></li>
+  <li><a href="#getting-started-repository-setup" id="toc-getting-started-repository-setup" class="nav-link" data-scroll-target="#getting-started-repository-setup">Getting Started: Repository Setup 🚀</a>
+  <ul class="collapse">
+  <li><a href="#getting-started-tips" id="toc-getting-started-tips" class="nav-link" data-scroll-target="#getting-started-tips">Getting Started Tips</a></li>
+  </ul></li>
+  <li><a href="#grading-rubric" id="toc-grading-rubric" class="nav-link" data-scroll-target="#grading-rubric">Grading Rubric 🎓</a></li>
+  <li><a href="#submission-checklist" id="toc-submission-checklist" class="nav-link" data-scroll-target="#submission-checklist">Submission Checklist ✅</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -318,7 +358,7 @@ First few rows of product line data:
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>shipments_with_lateness[[<span class="st">'shipID'</span>,<span class="st">'plannedShipDate'</span>,<span class="st">'actualShipDate'</span>,<span class="st">'is_late'</span>,<span class="st">'days_late'</span>,<span class="st">'lateStatement'</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="mental-model-1-assign" class="cell-output cell-output-display" data-execution_count="12">
+<div id="mental-model-1-assign" class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -661,7 +701,7 @@ This keeps code flexible — we can easily change the number (like 3 or 10) with
 <pre><code>{'rows_before': 4000, 'rows_after': 4000, 'dropped_rows': 0}
 Columns kept: ['shipID', 'plannedShipDate', 'actualShipDate', 'partID', 'is_late', 'days_late', 'lateStatement']</code></pre>
 </div>
-<div id="mental-model-3-drop" class="cell-output cell-output-display" data-execution_count="14">
+<div id="mental-model-3-drop" class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
 
@@ -785,7 +825,7 @@ We use <code>subset</code> here because we only require the two date fields to c
 <div class="cell-output cell-output-stdout">
 <pre><code>Top 8 worst delays:</code></pre>
 </div>
-<div id="mental-model-4-sort" class="cell-output cell-output-display" data-execution_count="15">
+<div id="mental-model-4-sort" class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
@@ -886,48 +926,16 @@ We use <code>subset</code> here because we only require the two date fields to c
 - <code>ascending=False</code> → largest values first.<br>
 - Sort by multiple columns: <code>python   df.sort_values(["is_late","days_late"], ascending=[False, False])</code></p>
 <p><strong>Q2: Why reset the index?</strong><br>
-Sorting keeps the <strong>old</strong> row numbers, which can look messy.<br>
-<code>.reset_index(drop=True)</code> creates clean 0..N-1 row numbers after sorting. s</p>
+Sorting keeps the <strong>old</strong> row numbers, which can be confusing.<br>
+<code>.reset_index(drop=True)</code> gives you clean 0..N–1 row numbers after sorting.</p>
 </section>
 </section>
 <section id="aggregate-summarizing-data" class="level3">
 <h3 class="anchored" data-anchor-id="aggregate-summarizing-data">5. Aggregate: Summarizing Data</h3>
 <p><strong>Mental Model:</strong> Calculate summary statistics across groups or the entire dataset.</p>
 <p>Let’s calculate overall service level metrics:</p>
-<div id="cell-mental-model-5-aggregate" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># safety: rebuild if needed (kernel was restarted)</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"clean_shipments"</span> <span class="kw">not</span> <span class="kw">in</span> <span class="bu">globals</span>():</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    shipments_with_lateness <span class="op">=</span> (</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        shipments_df</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        .assign(</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>            is_late   <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">"actualShipDate"</span>] <span class="op">&gt;</span> d[<span class="st">"plannedShipDate"</span>],</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>            days_late <span class="op">=</span> <span class="kw">lambda</span> d: (d[<span class="st">"actualShipDate"</span>] <span class="op">-</span> d[<span class="st">"plannedShipDate"</span>]).dt.days</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    clean_shipments <span class="op">=</span> (</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        shipments_with_lateness</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        .drop(columns<span class="op">=</span>[<span class="st">"quantity"</span>], errors<span class="op">=</span><span class="st">"ignore"</span>)</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        .dropna(subset<span class="op">=</span>[<span class="st">"plannedShipDate"</span>,<span class="st">"actualShipDate"</span>])</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Aggregate: one-row summary of service metrics (named aggregation) ---</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>service_metrics <span class="op">=</span> clean_shipments.agg(</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    shipments  <span class="op">=</span> (<span class="st">"is_late"</span>, <span class="st">"size"</span>),  <span class="co"># total rows</span></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    late_count <span class="op">=</span> (<span class="st">"is_late"</span>, <span class="st">"sum"</span>),   <span class="co"># count of True</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    late_rate  <span class="op">=</span> (<span class="st">"is_late"</span>, <span class="st">"mean"</span>),  <span class="co"># percent True</span></span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>    avg_late   <span class="op">=</span> (<span class="st">"days_late"</span>, <span class="st">"mean"</span>),</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    max_late   <span class="op">=</span> (<span class="st">"days_late"</span>, <span class="st">"max"</span>),</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure we always end up with a 1-row DataFrame (Series -&gt; DataFrame)</span></span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">isinstance</span>(service_metrics, pd.Series):</span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>    service_metrics <span class="op">=</span> service_metrics.to_frame().T</span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Round only for display</span></span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>service_metrics_display <span class="op">=</span> service_metrics.<span class="bu">round</span>({<span class="st">"late_rate"</span>: <span class="dv">3</span>, <span class="st">"avg_late"</span>: <span class="dv">2</span>})</span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>service_metrics_display</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="mental-model-5-aggregate" class="cell-output cell-output-display" data-execution_count="16">
+<div id="cell-nicer-aggregate" class="cell" data-execution_count="6">
+<div id="nicer-aggregate" class="cell-output cell-output-display">
 <div>
 
 
@@ -935,35 +943,23 @@ Sorting keeps the <strong>old</strong> row numbers, which can look messy.<br>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">is_late</th>
-<th data-quarto-table-cell-role="th">days_late</th>
+<th data-quarto-table-cell-role="th">Shipments</th>
+<th data-quarto-table-cell-role="th">Late shipments</th>
+<th data-quarto-table-cell-role="th">Late rate</th>
+<th data-quarto-table-cell-role="th">On-time rate (%)</th>
+<th data-quarto-table-cell-role="th">Avg days late</th>
+<th data-quarto-table-cell-role="th">Max days late</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">shipments</th>
-<td>4000.000</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">late_count</th>
-<td>456.000</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">late_rate</th>
+<th data-quarto-table-cell-role="th">0</th>
+<td>4000</td>
+<td>456</td>
 <td>0.114</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">avg_late</th>
-<td>NaN</td>
-<td>-0.974</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">max_late</th>
-<td>NaN</td>
-<td>21.000</td>
+<td>88.6</td>
+<td>-0.97</td>
+<td>21.0</td>
 </tr>
 </tbody>
 </table>
@@ -971,6 +967,7 @@ Sorting keeps the <strong>old</strong> row numbers, which can look messy.<br>
 </div>
 </div>
 </div>
+<p><em>Note:</em> Negative <strong>“Avg days late”</strong> means the shipment was <strong>early</strong> (went out before the planned date).</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -998,67 +995,67 @@ Rounding early can change the math. Keep full precision for calculations, then r
 <p><strong>Mental Model:</strong> Join data from multiple sources to create richer datasets.</p>
 <p>Now let’s analyze service levels by product category. First, we need to merge our data:</p>
 <div id="mental-model-6-merge" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># safety: rebuild prior results if needed</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"clean_shipments"</span> <span class="kw">not</span> <span class="kw">in</span> <span class="bu">globals</span>():</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    shipments_with_lateness <span class="op">=</span> (</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        shipments_df</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        .assign(</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>            is_late   <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">"actualShipDate"</span>] <span class="op">&gt;</span> d[<span class="st">"plannedShipDate"</span>],</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>            days_late <span class="op">=</span> <span class="kw">lambda</span> d: (d[<span class="st">"actualShipDate"</span>] <span class="op">-</span> d[<span class="st">"plannedShipDate"</span>]).dt.days</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    clean_shipments <span class="op">=</span> (</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        shipments_with_lateness</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        .drop(columns<span class="op">=</span>[<span class="st">"quantity"</span>], errors<span class="op">=</span><span class="st">"ignore"</span>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        .dropna(subset<span class="op">=</span>[<span class="st">"plannedShipDate"</span>,<span class="st">"actualShipDate"</span>])</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Merge with product info (keep all shipments) ---</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>rows_before <span class="op">=</span> <span class="bu">len</span>(clean_shipments)</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Prefer validation (many shipments -&gt; one product row). If duplicates exist, skip validation gracefully.</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    shipments_with_category <span class="op">=</span> clean_shipments.merge(</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>        product_line_df,</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>        on<span class="op">=</span><span class="st">"partID"</span>,</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">"left"</span>,</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>        validate<span class="op">=</span><span class="st">"many_to_one"</span>  <span class="co"># guard against duplicate partID in product table</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Note: validate='many_to_one' failed, merging without validate. Details:"</span>, e)</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>    shipments_with_category <span class="op">=</span> clean_shipments.merge(</span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>        product_line_df,</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>        on<span class="op">=</span><span class="st">"partID"</span>,</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">"left"</span></span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>rows_after <span class="op">=</span> <span class="bu">len</span>(shipments_with_category)</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a><span class="co"># add a helper flag (late + has category info)</span></span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>shipments_with_category <span class="op">=</span> shipments_with_category.assign(</span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>    category_late <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">"is_late"</span>] <span class="op">&amp;</span> d[<span class="st">"prodCategory"</span>].notna()</span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a><span class="co"># small join audit</span></span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>missing_cat <span class="op">=</span> shipments_with_category[<span class="st">"prodCategory"</span>].isna().<span class="bu">sum</span>()</span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>({</span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rows_before_merge"</span>: rows_before,</span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rows_after_merge"</span>: rows_after,</span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lost_rows"</span>: rows_before <span class="op">-</span> rows_after,</span>
-<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>    <span class="st">"missing_prodCategory"</span>: <span class="bu">int</span>(missing_cat)</span>
-<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a><span class="co"># quick peek</span></span>
-<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
-<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>display(</span>
-<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>    shipments_with_category</span>
-<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>      .loc[:, [<span class="st">"shipID"</span>,<span class="st">"partID"</span>,<span class="st">"prodCategory"</span>,<span class="st">"is_late"</span>,<span class="st">"days_late"</span>,<span class="st">"category_late"</span>]]</span>
-<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a>      .head(<span class="dv">8</span>)</span>
-<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a><span class="co"># category coverage</span></span>
-<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Category counts (non-missing):"</span>)</span>
-<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>display(shipments_with_category[<span class="st">"prodCategory"</span>].value_counts().head(<span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># safety: rebuild prior results if needed</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"clean_shipments"</span> <span class="kw">not</span> <span class="kw">in</span> <span class="bu">globals</span>():</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    shipments_with_lateness <span class="op">=</span> (</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        shipments_df</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        .assign(</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>            is_late   <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">"actualShipDate"</span>] <span class="op">&gt;</span> d[<span class="st">"plannedShipDate"</span>],</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>            days_late <span class="op">=</span> <span class="kw">lambda</span> d: (d[<span class="st">"actualShipDate"</span>] <span class="op">-</span> d[<span class="st">"plannedShipDate"</span>]).dt.days</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    clean_shipments <span class="op">=</span> (</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        shipments_with_lateness</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        .drop(columns<span class="op">=</span>[<span class="st">"quantity"</span>], errors<span class="op">=</span><span class="st">"ignore"</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        .dropna(subset<span class="op">=</span>[<span class="st">"plannedShipDate"</span>,<span class="st">"actualShipDate"</span>])</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Merge with product info (keep all shipments) ---</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>rows_before <span class="op">=</span> <span class="bu">len</span>(clean_shipments)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Prefer validation (many shipments -&gt; one product row). If duplicates exist, skip validation gracefully.</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>    shipments_with_category <span class="op">=</span> clean_shipments.merge(</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>        product_line_df,</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>        on<span class="op">=</span><span class="st">"partID"</span>,</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">"left"</span>,</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>        validate<span class="op">=</span><span class="st">"many_to_one"</span>  <span class="co"># guard against duplicate partID in product table</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Note: validate='many_to_one' failed, merging without validate. Details:"</span>, e)</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>    shipments_with_category <span class="op">=</span> clean_shipments.merge(</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>        product_line_df,</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>        on<span class="op">=</span><span class="st">"partID"</span>,</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">"left"</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>rows_after <span class="op">=</span> <span class="bu">len</span>(shipments_with_category)</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="co"># add a helper flag (late + has category info)</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>shipments_with_category <span class="op">=</span> shipments_with_category.assign(</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>    category_late <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">"is_late"</span>] <span class="op">&amp;</span> d[<span class="st">"prodCategory"</span>].notna()</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="co"># small join audit</span></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>missing_cat <span class="op">=</span> shipments_with_category[<span class="st">"prodCategory"</span>].isna().<span class="bu">sum</span>()</span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>({</span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rows_before_merge"</span>: rows_before,</span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rows_after_merge"</span>: rows_after,</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lost_rows"</span>: rows_before <span class="op">-</span> rows_after,</span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>    <span class="st">"missing_prodCategory"</span>: <span class="bu">int</span>(missing_cat)</span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="co"># quick peek</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>    shipments_with_category</span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>      .loc[:, [<span class="st">"shipID"</span>,<span class="st">"partID"</span>,<span class="st">"prodCategory"</span>,<span class="st">"is_late"</span>,<span class="st">"days_late"</span>,<span class="st">"category_late"</span>]]</span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>      .head(<span class="dv">8</span>)</span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a><span class="co"># category coverage</span></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Category counts (non-missing):"</span>)</span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a>display(shipments_with_category[<span class="st">"prodCategory"</span>].value_counts().head(<span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'rows_before_merge': 4000, 'rows_after_merge': 4000, 'lost_rows': 0, 'missing_prodCategory': 0}</code></pre>
 </div>
@@ -1193,7 +1190,7 @@ Name: count, dtype: int64</code></pre>
 We want to keep <strong>all shipments</strong> even if some parts don’t have category info yet. A left join keeps the shipment rows.</p>
 <p><strong>Q2: How to check if we lost rows in the merge?</strong><br>
 Compare counts <strong>before vs after</strong> the merge. They should match for a left join:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(clean_shipments), <span class="bu">len</span>(shipments_with_category)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(clean_shipments), <span class="bu">len</span>(shipments_with_category)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Q3: What if <code>partID</code> has duplicates in the product table?</strong><br>
 Duplicates create many-to-many matches (rows can multiply). Use <code>validate="many_to_one"</code> to catch it. If it fails, fix the product table so each <code>partID</code> maps to <strong>one</strong> category.</p>
 </section>
@@ -1203,54 +1200,54 @@ Duplicates create many-to-many matches (rows can multiply). Use <code>validate="
 <p><strong>Mental Model:</strong> Group data and apply functions within each group.</p>
 <p>Now let’s analyze service levels by category:</p>
 <div id="mental-model-7-groupby" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># safety: rebuild merge result if needed</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"shipments_with_category"</span> <span class="kw">not</span> <span class="kw">in</span> <span class="bu">globals</span>():</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># rebuild from earlier steps</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    shipments_with_lateness <span class="op">=</span> (</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        shipments_df</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        .assign(</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>            is_late   <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">"actualShipDate"</span>] <span class="op">&gt;</span> d[<span class="st">"plannedShipDate"</span>],</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>            days_late <span class="op">=</span> <span class="kw">lambda</span> d: (d[<span class="st">"actualShipDate"</span>] <span class="op">-</span> d[<span class="st">"plannedShipDate"</span>]).dt.days</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    clean_shipments <span class="op">=</span> (</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        shipments_with_lateness</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        .drop(columns<span class="op">=</span>[<span class="st">"quantity"</span>], errors<span class="op">=</span><span class="st">"ignore"</span>)</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        .dropna(subset<span class="op">=</span>[<span class="st">"plannedShipDate"</span>,<span class="st">"actualShipDate"</span>])</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    shipments_with_category <span class="op">=</span> clean_shipments.merge(</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>        product_line_df, on<span class="op">=</span><span class="st">"partID"</span>, how<span class="op">=</span><span class="st">"left"</span></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    ).assign(category_late <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">"is_late"</span>] <span class="op">&amp;</span> d[<span class="st">"prodCategory"</span>].notna())</span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Group by product category: late rate + lateness stats ---</span></span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>service_by_category <span class="op">=</span> (</span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>    shipments_with_category</span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"prodCategory"</span>, as_index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>        shipments <span class="op">=</span> (<span class="st">"is_late"</span>, <span class="st">"size"</span>),</span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>        late      <span class="op">=</span> (<span class="st">"is_late"</span>, <span class="st">"sum"</span>),</span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>        late_rate <span class="op">=</span> (<span class="st">"is_late"</span>, <span class="st">"mean"</span>),</span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>        avg_late  <span class="op">=</span> (<span class="st">"days_late"</span>, <span class="st">"mean"</span>),</span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>        max_late  <span class="op">=</span> (<span class="st">"days_late"</span>, <span class="st">"max"</span>)</span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>    .assign(on_time_rate <span class="op">=</span> <span class="kw">lambda</span> d: <span class="dv">1</span> <span class="op">-</span> d[<span class="st">"late_rate"</span>])</span>
-<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>({<span class="st">"late_rate"</span>: <span class="dv">3</span>, <span class="st">"on_time_rate"</span>: <span class="dv">3</span>, <span class="st">"avg_late"</span>: <span class="dv">2</span>})</span>
-<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">"on_time_rate"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
-<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>display(service_by_category.head(<span class="dv">10</span>))</span>
-<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a><span class="co"># --- (optional) multi-level grouping example: by ship + category ---</span></span>
-<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>ship_cat_summary <span class="op">=</span> (</span>
-<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>    shipments_with_category</span>
-<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a>    .groupby([<span class="st">"shipID"</span>,<span class="st">"prodCategory"</span>], as_index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
-<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a>        late_any  <span class="op">=</span> (<span class="st">"is_late"</span>,<span class="st">"any"</span>),</span>
-<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>        max_late  <span class="op">=</span> (<span class="st">"days_late"</span>,<span class="st">"max"</span>)</span>
-<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>display(ship_cat_summary.head(<span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># safety: rebuild merge result if needed</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"shipments_with_category"</span> <span class="kw">not</span> <span class="kw">in</span> <span class="bu">globals</span>():</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># rebuild from earlier steps</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    shipments_with_lateness <span class="op">=</span> (</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        shipments_df</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        .assign(</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>            is_late   <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">"actualShipDate"</span>] <span class="op">&gt;</span> d[<span class="st">"plannedShipDate"</span>],</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>            days_late <span class="op">=</span> <span class="kw">lambda</span> d: (d[<span class="st">"actualShipDate"</span>] <span class="op">-</span> d[<span class="st">"plannedShipDate"</span>]).dt.days</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    clean_shipments <span class="op">=</span> (</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>        shipments_with_lateness</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>        .drop(columns<span class="op">=</span>[<span class="st">"quantity"</span>], errors<span class="op">=</span><span class="st">"ignore"</span>)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>        .dropna(subset<span class="op">=</span>[<span class="st">"plannedShipDate"</span>,<span class="st">"actualShipDate"</span>])</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    shipments_with_category <span class="op">=</span> clean_shipments.merge(</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>        product_line_df, on<span class="op">=</span><span class="st">"partID"</span>, how<span class="op">=</span><span class="st">"left"</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    ).assign(category_late <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">"is_late"</span>] <span class="op">&amp;</span> d[<span class="st">"prodCategory"</span>].notna())</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Group by product category: late rate + lateness stats ---</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>service_by_category <span class="op">=</span> (</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    shipments_with_category</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"prodCategory"</span>, as_index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>        shipments <span class="op">=</span> (<span class="st">"is_late"</span>, <span class="st">"size"</span>),</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>        late      <span class="op">=</span> (<span class="st">"is_late"</span>, <span class="st">"sum"</span>),</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>        late_rate <span class="op">=</span> (<span class="st">"is_late"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>        avg_late  <span class="op">=</span> (<span class="st">"days_late"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>        max_late  <span class="op">=</span> (<span class="st">"days_late"</span>, <span class="st">"max"</span>)</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>    .assign(on_time_rate <span class="op">=</span> <span class="kw">lambda</span> d: <span class="dv">1</span> <span class="op">-</span> d[<span class="st">"late_rate"</span>])</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>({<span class="st">"late_rate"</span>: <span class="dv">3</span>, <span class="st">"on_time_rate"</span>: <span class="dv">3</span>, <span class="st">"avg_late"</span>: <span class="dv">2</span>})</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">"on_time_rate"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>display(service_by_category.head(<span class="dv">10</span>))</span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a><span class="co"># --- (optional) multi-level grouping example: by ship + category ---</span></span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>ship_cat_summary <span class="op">=</span> (</span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>    shipments_with_category</span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>    .groupby([<span class="st">"shipID"</span>,<span class="st">"prodCategory"</span>], as_index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
+<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>        late_any  <span class="op">=</span> (<span class="st">"is_late"</span>,<span class="st">"any"</span>),</span>
+<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>        max_late  <span class="op">=</span> (<span class="st">"days_late"</span>,<span class="st">"max"</span>)</span>
+<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a>display(ship_cat_summary.head(<span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="mental-model-7-groupby-1" class="cell-output cell-output-display">
 <div>
 
@@ -1427,54 +1424,54 @@ Grouping by just <code>'prodCategory'</code> ignores shipment boundaries and giv
 <p><strong>Mental Model:</strong> Combine multiple data manipulation techniques to answer complex business questions.</p>
 <p>Let’s create a comprehensive analysis by combining shipment-level data with category information:</p>
 <div id="cell-business-question" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: Do certain categories have better service? How many multi-category shipments?</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># safety: rebuild if needed</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"shipments_with_category"</span> <span class="kw">not</span> <span class="kw">in</span> <span class="bu">globals</span>():</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    shipments_with_lateness <span class="op">=</span> (</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        shipments_df</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        .assign(</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>            is_late   <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">"actualShipDate"</span>] <span class="op">&gt;</span> d[<span class="st">"plannedShipDate"</span>],</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>            days_late <span class="op">=</span> <span class="kw">lambda</span> d: (d[<span class="st">"actualShipDate"</span>] <span class="op">-</span> d[<span class="st">"plannedShipDate"</span>]).dt.days</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    clean_shipments <span class="op">=</span> (</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>        shipments_with_lateness</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>        .drop(columns<span class="op">=</span>[<span class="st">"quantity"</span>], errors<span class="op">=</span><span class="st">"ignore"</span>)</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>        .dropna(subset<span class="op">=</span>[<span class="st">"plannedShipDate"</span>,<span class="st">"actualShipDate"</span>])</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    shipments_with_category <span class="op">=</span> clean_shipments.merge(</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>        product_line_df, on<span class="op">=</span><span class="st">"partID"</span>, how<span class="op">=</span><span class="st">"left"</span></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) service by category (on-time rate)</span></span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>service_by_category <span class="op">=</span> (</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>    shipments_with_category</span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"prodCategory"</span>, as_index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>        shipments <span class="op">=</span> (<span class="st">"is_late"</span>,<span class="st">"size"</span>),</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>        late      <span class="op">=</span> (<span class="st">"is_late"</span>,<span class="st">"sum"</span>),</span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>        late_rate <span class="op">=</span> (<span class="st">"is_late"</span>,<span class="st">"mean"</span>)</span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    .assign(on_time_rate <span class="op">=</span> <span class="kw">lambda</span> d: <span class="dv">1</span> <span class="op">-</span> d[<span class="st">"late_rate"</span>])</span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">"on_time_rate"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) multi-category shipments (% of shipments that include &gt;1 category)</span></span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>ship_cat <span class="op">=</span> (</span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>    shipments_with_category</span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>    .groupby([<span class="st">"shipID"</span>,<span class="st">"prodCategory"</span>], as_index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>    .size()</span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>multi_cat <span class="op">=</span> (</span>
-<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>    ship_cat.groupby(<span class="st">"shipID"</span>)[<span class="st">"prodCategory"</span>].nunique().rename(<span class="st">"n_cat"</span>).reset_index()</span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>multi_share <span class="op">=</span> (multi_cat[<span class="st">"n_cat"</span>] <span class="op">&gt;</span> <span class="dv">1</span>).mean() <span class="op">*</span> <span class="dv">100</span></span>
-<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Display quick results</span></span>
-<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
-<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Share of shipments with multiple product categories: </span><span class="sc">{</span>multi_share<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
-<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>display(service_by_category.head(<span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: Do certain categories have better service? How many multi-category shipments?</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># safety: rebuild if needed</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"shipments_with_category"</span> <span class="kw">not</span> <span class="kw">in</span> <span class="bu">globals</span>():</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    shipments_with_lateness <span class="op">=</span> (</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        shipments_df</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        .assign(</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>            is_late   <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">"actualShipDate"</span>] <span class="op">&gt;</span> d[<span class="st">"plannedShipDate"</span>],</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>            days_late <span class="op">=</span> <span class="kw">lambda</span> d: (d[<span class="st">"actualShipDate"</span>] <span class="op">-</span> d[<span class="st">"plannedShipDate"</span>]).dt.days</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    clean_shipments <span class="op">=</span> (</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        shipments_with_lateness</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        .drop(columns<span class="op">=</span>[<span class="st">"quantity"</span>], errors<span class="op">=</span><span class="st">"ignore"</span>)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>        .dropna(subset<span class="op">=</span>[<span class="st">"plannedShipDate"</span>,<span class="st">"actualShipDate"</span>])</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    shipments_with_category <span class="op">=</span> clean_shipments.merge(</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>        product_line_df, on<span class="op">=</span><span class="st">"partID"</span>, how<span class="op">=</span><span class="st">"left"</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) service by category (on-time rate)</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>service_by_category <span class="op">=</span> (</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    shipments_with_category</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"prodCategory"</span>, as_index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>        shipments <span class="op">=</span> (<span class="st">"is_late"</span>,<span class="st">"size"</span>),</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>        late      <span class="op">=</span> (<span class="st">"is_late"</span>,<span class="st">"sum"</span>),</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>        late_rate <span class="op">=</span> (<span class="st">"is_late"</span>,<span class="st">"mean"</span>)</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>    .assign(on_time_rate <span class="op">=</span> <span class="kw">lambda</span> d: <span class="dv">1</span> <span class="op">-</span> d[<span class="st">"late_rate"</span>])</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">"on_time_rate"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) multi-category shipments (% of shipments that include &gt;1 category)</span></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>ship_cat <span class="op">=</span> (</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>    shipments_with_category</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>    .groupby([<span class="st">"shipID"</span>,<span class="st">"prodCategory"</span>], as_index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a>    .size()</span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>multi_cat <span class="op">=</span> (</span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>    ship_cat.groupby(<span class="st">"shipID"</span>)[<span class="st">"prodCategory"</span>].nunique().rename(<span class="st">"n_cat"</span>).reset_index()</span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a>multi_share <span class="op">=</span> (multi_cat[<span class="st">"n_cat"</span>] <span class="op">&gt;</span> <span class="dv">1</span>).mean() <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Display quick results</span></span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Share of shipments with multiple product categories: </span><span class="sc">{</span>multi_share<span class="sc">:.1f}</span><span class="ss">%"</span>)</span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>display(service_by_category.head(<span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Share of shipments with multiple product categories: 23.3%</code></pre>
 </div>
@@ -1601,7 +1598,7 @@ Focus on categories with lower on-time %, and plan staffing/inventory where mult
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 <p>Across ~4k shipments, about <strong>11%</strong> were late. Categories differ: top groups run at ~95% on-time, while others are closer to <strong>82%</strong>. About <strong>23%</strong> of orders span multiple categories, which increases coordination needs.<br>
-<strong>Next steps:</strong> prioritize SLAs/process fixes for the lowest on-time categories, and review picking/inventory for multi-category orders to reduce delays.</p>
+<strong>Next steps:</strong> prioritize SLAs/process fixes for the lowest on-time categories (especially <strong>Machines</strong> and <strong>SpareParts</strong>), and pilot a streamlined pick/pack flow for <strong>multi-category</strong> orders to reduce delays.</p>
 </section>
 </section>
 <section id="challenge-requirements" class="level2">

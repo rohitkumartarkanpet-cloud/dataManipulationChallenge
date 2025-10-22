@@ -2,12 +2,15 @@
 title: "Data Manipulation Challenge"
 subtitle: "A Mental Model for Method Chaining in Pandas"
 format:
-  html: default
- # pdf: default
+  html:
+    toc: true
+    toc-title: "On this page"
+    number-sections: false
 execute:
   echo: true
   eval: true
 ---
+
 
 # 🔗 Data Manipulation Challenge - A Mental Model for Method Chaining in Pandas
 
@@ -467,9 +470,9 @@ sorted_by_lateness.loc[:, ["shipID","partID","days_late","is_late"]].head(8)
   ```
 
 **Q2: Why reset the index?**  
-Sorting keeps the **old** row numbers, which can look messy.  
-`.reset_index(drop=True)` creates clean 0..N-1 row numbers after sorting.
-s
+Sorting keeps the **old** row numbers, which can be confusing.  
+`.reset_index(drop=True)` gives you clean 0..N–1 row numbers after sorting.
+
 
 ### 5. Aggregate: Summarizing Data
 
@@ -478,11 +481,19 @@ s
 Let's calculate overall service level metrics:
 
 ```{python}
-#| label: mental-model-5-aggregate
-#| echo: true
+#| label: nicer-aggregate
+#| echo: false
 
-# safety: rebuild if needed (kernel was restarted)
+import pandas as pd
+import numpy as np
+
+# --- safety: rebuild minimal inputs if kernel was restarted ---
 if "clean_shipments" not in globals():
+    shipments_df = pd.read_csv(
+        "https://raw.githubusercontent.com/flyaflya/persuasive/main/shipments.csv",
+        parse_dates=["plannedShipDate","actualShipDate"]
+    ).head(4000)
+
     shipments_with_lateness = (
         shipments_df
         .assign(
@@ -490,30 +501,36 @@ if "clean_shipments" not in globals():
             days_late = lambda d: (d["actualShipDate"] - d["plannedShipDate"]).dt.days
         )
     )
+
     clean_shipments = (
         shipments_with_lateness
         .drop(columns=["quantity"], errors="ignore")
         .dropna(subset=["plannedShipDate","actualShipDate"])
     )
 
-# --- Aggregate: one-row summary of service metrics (named aggregation) ---
-service_metrics = clean_shipments.agg(
-    shipments  = ("is_late", "size"),  # total rows
-    late_count = ("is_late", "sum"),   # count of True
-    late_rate  = ("is_late", "mean"),  # percent True
-    avg_late   = ("days_late", "mean"),
-    max_late   = ("days_late", "max"),
-)
+# --- explicit, robust metrics (no named-agg) ---
+total_shipments = len(clean_shipments)
+late_count      = int(clean_shipments["is_late"].sum())
+late_rate       = float(clean_shipments["is_late"].mean())              # 0..1
+on_time_pct     = (1.0 - late_rate) * 100.0
+avg_days_late   = float(clean_shipments["days_late"].mean())
+max_days_late   = float(clean_shipments["days_late"].max())
 
-# Ensure we always end up with a 1-row DataFrame (Series -> DataFrame)
-import pandas as pd
-if isinstance(service_metrics, pd.Series):
-    service_metrics = service_metrics.to_frame().T
+display_tbl = pd.DataFrame([{
+    "Shipments":          total_shipments,
+    "Late shipments":     late_count,
+    "Late rate":          late_rate,
+    "On-time rate (%)":   on_time_pct,
+    "Avg days late":      avg_days_late,
+    "Max days late":      max_days_late,
+}]).round({"Late rate": 3, "On-time rate (%)": 1, "Avg days late": 2})
 
-# Round only for display
-service_metrics_display = service_metrics.round({"late_rate": 3, "avg_late": 2})
-service_metrics_display
+display(display_tbl)
 ```
+
+
+*Note:* Negative **“Avg days late”** means the shipment was **early** (went out before the planned date).
+
 
 
 
@@ -867,10 +884,50 @@ Focus on categories with lower on-time %, and plan staffing/inventory where mult
 #| dpi: 150
 #| fig-align: center
 
+import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 
-# make a clean copy sorted by on-time rate (ascending for barh)
+# --- build service_by_category if it's not already present ---
+def _build_service_by_category():
+    global service_by_category, shipments_with_category
+    if "shipments_with_category" not in globals():
+        # minimal rebuild
+        shipments_df = pd.read_csv(
+            "https://raw.githubusercontent.com/flyaflya/persuasive/main/shipments.csv",
+            parse_dates=["plannedShipDate","actualShipDate"]
+        ).head(4000)
+        product_line_df = pd.read_csv(
+            "https://raw.githubusercontent.com/flyaflya/persuasive/main/productLine.csv"
+        )
+        swl = (
+            shipments_df
+            .assign(
+                is_late   = lambda d: d["actualShipDate"] > d["plannedShipDate"],
+                days_late = lambda d: (d["actualShipDate"] - d["plannedShipDate"]).dt.days
+            )
+            .drop(columns=["quantity"], errors="ignore")
+            .dropna(subset=["plannedShipDate","actualShipDate"])
+        )
+        shipments_with_category = swl.merge(product_line_df, on="partID", how="left")
+
+    service_by_category = (
+        shipments_with_category
+        .groupby("prodCategory", as_index=False)
+        .agg(
+            shipments = ("is_late","size"),
+            late      = ("is_late","sum"),
+            late_rate = ("is_late","mean")
+        )
+        .assign(on_time_rate = lambda d: 1 - d["late_rate"])
+        .sort_values("on_time_rate", ascending=False)
+    )
+
+if "service_by_category" not in globals():
+    _build_service_by_category()
+
+# --- plot ---
 _plot = (
     service_by_category
     .dropna(subset=["on_time_rate"])
@@ -880,31 +937,27 @@ _plot = (
 
 fig, ax = plt.subplots()
 ax.barh(_plot["prodCategory"].astype(str), _plot["on_time_pct"])
-
-# x axis in 0–100% with percent labels
 ax.set_xlim(0, 100)
 ax.xaxis.set_major_formatter(mtick.PercentFormatter(xmax=100))
-
-# labels & title
 ax.set_xlabel("On-time %")
 ax.set_ylabel("Product Category")
 ax.set_title("On-time Delivery by Category")
-
-# light grid and cleaner frame
 ax.grid(axis="x", linestyle=":", alpha=0.5)
-for spine in ["top", "right"]:
+for spine in ["top","right"]:
     ax.spines[spine].set_visible(False)
 
-# value labels at the end of bars
+# value labels
 for i, v in enumerate(_plot["on_time_pct"]):
     ax.text(v + 0.6, i, f"{v:.1f}%", va="center")
 
 plt.tight_layout()
 ```
 
+
 ### Conclusion
 Across ~4k shipments, about **11%** were late. Categories differ: top groups run at ~95% on-time, while others are closer to **82%**. About **23%** of orders span multiple categories, which increases coordination needs.  
-**Next steps:** prioritize SLAs/process fixes for the lowest on-time categories, and review picking/inventory for multi-category orders to reduce delays.
+**Next steps:** prioritize SLAs/process fixes for the lowest on-time categories (especially **Machines** and **SpareParts**), and pilot a streamlined pick/pack flow for **multi-category** orders to reduce delays.
+
 
 
 ## Challenge Requirements 📋
